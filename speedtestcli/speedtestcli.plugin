@@ -1,0 +1,6 @@
+Module = speedtestcli
+Name = Speed Test Cli
+Description = Run a speed test using the speedtest-cli package. Type .speedtest in any chat to use it
+Author = Nitan Alexandru Marcel
+Version = 1.0
+Requirements = telethon, speedtest-cli
