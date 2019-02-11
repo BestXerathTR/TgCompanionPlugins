@@ -1,24 +1,46 @@
-from tg_companion.tgclient import client
-from telethon import events
+import io
+from datetime import datetime
+
+import requests
 import speedtest
+from telethon import events
+
+from tg_companion.tgclient import client
 
 
 @client.on(events.NewMessage(outgoing=True, pattern=r"\.speedtest"))
 async def run_speedtest(e):
     await e.edit("`Calculating your internet speed. Please wait!`")
+    chat = await e.get_chat()
+
+    start_time = datetime.now()
 
     s = speedtest.Speedtest()
     s.get_best_server()
     s.download()
     s.upload()
+    end_time = start_time - datetime.now()
+    offset = end_time.seconds + (end_time.days * 60 * 60 * 24)
+    seconds = offset % 60
 
     response = s.results.dict()
     download_speed = response.get("download")
     upload_speed = response.get("upload")
     ping_time = response.get("ping")
-    await e.edit(f"__Download:__ `{convert_from_bytes(download_speed)}`"
-                 f"\n__Upload:__ `{convert_from_bytes(upload_speed)}`"
-                 f"\nPing: {ping_time}")
+    try:
+        response = requests.get(s.results.share())
+
+        with io.BytesIO(response.content) as speedtest_image:
+            speedtest_image.name = "speedtest.png"
+            await e.edit(f"Speedtest collected in {seconds}s")
+            await client.send_file(chat.id, speedtest_image, caption=f"Here are your speed test result", reply_to=e)
+
+    except (speedtest.ShareResultsConnectFailure, speedtest.ShareResultsSubmitFailure) as exc:
+        print(type(exc))
+        await e.edit(f"__Download:__ `{convert_from_bytes(download_speed)}`"
+                     f"\n__Upload:__ `{convert_from_bytes(upload_speed)}`"
+                     f"\n__Ping:__ `{ping_time}`"
+                     f"\nCollected in: `{seconds}s`")
 
 
 def convert_from_bytes(size):
