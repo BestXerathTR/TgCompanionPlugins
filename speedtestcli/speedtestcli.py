@@ -33,7 +33,7 @@ async def run_speedtest(e):
         with io.BytesIO(response.content) as speedtest_image:
             speedtest_image.name = "speedtest.png"
             await e.edit(f"Speedtest collected in {seconds}s")
-            await client.send_file(chat.id, speedtest_image, caption=f"Here are your speed test result", reply_to=e)
+            await client.send_file(chat.id, speedtest_image, caption=f"Here are your speed test results", reply_to=e)
 
     except (speedtest.ShareResultsConnectFailure, speedtest.ShareResultsSubmitFailure) as exc:
         print(type(exc))
