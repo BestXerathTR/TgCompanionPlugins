@@ -1,0 +1,6 @@
+Module = deldog
+Name = DelDog Paster
+Description = Use .paste <text> to paste your text to del.dog or reply to a mesage to paste it. Use .getpaste <paste_url> to send the content of the url as a message
+Author = Nitan Alexandru Marcel
+Version = 1.0
+Requirements = telethon, aiohttp
