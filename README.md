@@ -2,7 +2,7 @@
 
 Plugin Repository for [TelegramCompanion](https://github.com/nitanmarcel/TelegramCompanion).
 
-Before making any pull request or creating a plugin on your repo read this carefully.
+Before making any pull request or creating a plugin on your repo read this carefully. If you didn't read the Contribuiting section on the TelegramCompanion repo please read it here: https://github.com/nitanmarcel/TelegramCompanion#contributing
 
 This is a beta feature so is not fully stable. Also I'm not taking any responsabilites for what plugin you install unless they are installed from this official repository.
 
@@ -30,8 +30,10 @@ CONFIG_VALUE = os.environ.get("CONFIG_VALUE", "DEFAULT_VALUE")
 
 Module = getinstalledplugins
 Name = Get Installed Plugins
-Description = Use .plugins to  list all the installed plugins or .plugin name to get the info for a specific plugin
+Description = Get a list with all of the installed plugins
 Author = Nitan Alexandru Marcel
 Version = 1.0
 Requirements = telethon
+
+
 ```
