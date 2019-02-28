@@ -8,7 +8,12 @@ from telethon import events
 from tg_companion.tgclient import client
 
 
-@client.on(events.NewMessage(outgoing=True, pattern=r"\.speedtest"))
+
+SPEEDTEST_HELP = """
+    **Test your internet speed using http://speedtest.net/**
+"""
+
+@client.CommandHandler(outgoing=True, command="speedtest", help=SPEEDTEST_HELP)
 async def run_speedtest(e):
     await e.edit("`Calculating your internet speed. Please wait!`")
     chat = await e.get_chat()

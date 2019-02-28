@@ -3,14 +3,23 @@ from telethon import events
 
 from tg_companion.tgclient import client
 
+PASTE_HELP = """
+    **Paste a text to del.dog**
+    __Usage:__
+        Reply to a text message
+        or use the command followed by a text.
+    __Args:__
+        `<text>` - **(required if not reply)** __Text to paste on del.dog__
+"""
+
 URL = "https://del.dog"
 
 
 @client.on(
-    events.NewMessage(
+    events.CommandHandler(
         outgoing=True,
         pattern=".paste",
-        func=lambda e: True if e.reply_to_msg_id else False))
+        func=lambda e: True if e.reply_to_msg_id else False, help=PASTE_HELP))
 async def reply_paste(event):
     reply_to = await event.get_reply_message()
 
