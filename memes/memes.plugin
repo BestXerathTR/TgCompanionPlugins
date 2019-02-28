@@ -3,4 +3,4 @@ Name = Memes
 Description = A simple meme modules
 Author = Rhyse Simpson (skittles9823) & Nitan Alexandru Marcel
 Version = 1.0
-Requirements = telethon, bs4, emoji
+Requirements = telethon, bs4, emoji, lxml
