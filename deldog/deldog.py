@@ -1,5 +1,4 @@
 import aiohttp
-from telethon import events
 
 from tg_companion.tgclient import client
 
@@ -12,14 +11,18 @@ PASTE_HELP = """
         `<text>` - **(required if not reply)** __Text to paste on del.dog__
 """
 
+GET_PASTE_HELP = """
+    **Get the content of a paste**
+    __Args:__ **(required)** - __The url from the paste command__
+"""
+
 URL = "https://del.dog"
 
 
-@client.on(
-    events.CommandHandler(
+@client.CommandHandler(
         outgoing=True,
-        pattern=".paste",
-        func=lambda e: True if e.reply_to_msg_id else False, help=PASTE_HELP))
+        command=".paste",
+        func=lambda e: True if e.reply_to_msg_id else False, help=PASTE_HELP)
 async def reply_paste(event):
     reply_to = await event.get_reply_message()
 
@@ -46,11 +49,10 @@ async def reply_paste(event):
         await event.edit("`There's no text to paste`")
 
 
-@client.on(
-    events.NewMessage(
+@client.CommandHandler(
         outgoing=True,
-        pattern=r".paste ([\s\S]+)",
-        func=lambda e: False if e.reply_to_msg_id else True))
+        command=r".paste ([\s\S]+)",
+        func=lambda e: False if e.reply_to_msg_id else True)
 async def paste(event):
 
     content = event.pattern_match.group(1)
@@ -76,7 +78,7 @@ async def paste(event):
         await event.edit("`There's no text to paste`")
 
 
-@client.on(events.NewMessage(outgoing=True, pattern=".getpaste (.+)"))
+@client.CommandHandler(outgoing=True, command=".getpaste (.+)", help=GET_PASTE_HELP)
 async def get_paste(event):
     paste_key = event.pattern_match.group(1).rsplit('/', 1)[-1]
 
