@@ -93,7 +93,7 @@ async def owo(event):
     faces = ['(・`ω´・)',';;w;;','owo','UwU','>w<','^w^','\(^o\) (/o^)/','( ^ _ ^)∠☆','(ô_ô)','~:o',';____;', '(*^*)', '(>_', '(♥_♥)', '*(^O^)*', '((+_+))']
 
     reply_text = re.sub(r'r|l', "w", message)
-    reply_text = re.sub(r'R!L', 'W', reply_text)
+    reply_text = re.sub(r'R|L', 'W', reply_text)
     reply_text = re.sub(r'n([aeiouａｅｉｏｕ])', r'ny\1', reply_text)
     reply_text = re.sub(r'ｎ([ａｅｉｏｕ])', r'ｎｙ\1', reply_text)
     reply_text = re.sub(r'N([aeiouAEIOU])', r'Ny\1', reply_text)
