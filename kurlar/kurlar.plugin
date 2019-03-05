@@ -1,0 +1,6 @@
+Module = kurlar
+Name = Dolar ve Euro Kuru
+Description = Guncel dolar euro kuru
+Author = v2
+Version = 1.0
+Requirements = telethon
